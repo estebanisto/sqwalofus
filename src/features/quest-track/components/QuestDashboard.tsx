@@ -76,9 +76,11 @@ export function QuestDashboard({ onGoToBoard }: { onGoToBoard: () => void }) {
           const isJusticiersDone = d.justiciersTimestamp !== null && d.justiciersTimestamp >= lastTuesday;
           const isKerubimDone = d.kerubimTimestamp !== null && d.kerubimTimestamp >= lastTuesday;
           
-          const todayStr = new Date().toDateString();
-          const isAlmanaxDone = d.almanaxDone && d.almanaxDate === todayStr;
-          const isDragoDone = d.dragodindeDone && d.dragodindeDate === todayStr;
+          const nowLocal = new Date();
+          const todayString = `${nowLocal.getFullYear()}-${String(nowLocal.getMonth() + 1).padStart(2, '0')}-${String(nowLocal.getDate()).padStart(2, '0')}`;
+          
+          const isAlmanaxDone = d.almanaxDate === todayString;
+          const isDragoDone = d.dragodindeDate === todayString;
 
           return (
             <div 
