@@ -3,7 +3,7 @@ import { useQuestTrack } from '../QuestTrackContext';
 import { Compass, Tornado, Castle, FlaskConical, PawPrint, CalendarDays, Sword, Cat, Check, ChevronDown, RotateCcw } from 'lucide-react';
 import { cn } from '../../../lib/utils';
 
-const FRIGOST_DATA = [
+export const FRIGOST_DATA = [
   { name: "Royalmouth", kamas: 20136 },
   { name: "Mansot Royal", kamas: 26856 },
   { name: "Ben le Ripate", kamas: 30576 },
@@ -19,9 +19,9 @@ const FRIGOST_DATA = [
   { name: "Comte Harebourg", kamas: 0 }
 ];
 
-const FRIGOST_DUNGEONS = FRIGOST_DATA.map(d => d.name);
+export const FRIGOST_DUNGEONS = FRIGOST_DATA.map(d => d.name);
 
-const TORNADE_DATA = [
+export const TORNADE_DATA = [
   { quest: 'Donjon en mousse', dungeon: 'Donjon mousse', kamas: 1872 },
   { quest: 'Donjon rikiki', dungeon: 'Donjon rikiki', kamas: 5712 },
   { quest: 'Donjon en lambeaux', dungeon: 'Maison Fantôme', kamas: 5712 },
@@ -77,7 +77,7 @@ const getNextTuesdayAt7AM = (nowTime: number) => {
   return lastReset.getTime();
 };
 
-const TOUR_DU_MONDE_DATA = [
+export const TOUR_DU_MONDE_DATA = [
   { quest: 'Le tour du monde.', dungeons: ['Grange du Tournesol Affamé'], kamas: 1872 },
   { quest: 'Revenons à nos bouftons.', dungeons: ['Cour du Bouftou Royal'], kamas: 3552 },
   { quest: 'maitre des clés', dungeons: ['Donjon des Squelettes', 'Donjon des Tofus'], kamas: 11424 },
