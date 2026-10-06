@@ -392,8 +392,8 @@ export function QuestBoard() {
                     })}
                   </div>
                   
-                  {currentTdmQuest.dungeons.length > 1 && (
-                    <div className="flex justify-end pt-1">
+                  <div className="flex justify-end pt-1 gap-2">
+                    {currentTdmQuest.dungeons.length > 1 && (
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
@@ -407,8 +407,19 @@ export function QuestBoard() {
                       >
                         Tout cocher
                       </button>
-                    </div>
-                  )}
+                    )}
+                    {currentTdmQuest.dungeons.every(dj => d.tourDuMondeChecked.includes(dj)) && currentTdmIndex < TOUR_DU_MONDE_DATA.length - 1 && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          update('tourDuMondeQuest', TOUR_DU_MONDE_DATA[currentTdmIndex + 1].quest);
+                        }}
+                        className="text-[10px] uppercase tracking-wider font-bold text-emerald-400 hover:text-emerald-300 transition-colors bg-emerald-500/10 hover:bg-emerald-500/20 px-3 py-0.5 rounded border border-emerald-500/30"
+                      >
+                        Suivant ➔
+                      </button>
+                    )}
+                  </div>
                 </>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-2">
