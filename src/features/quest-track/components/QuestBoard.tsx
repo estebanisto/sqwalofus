@@ -3,42 +3,54 @@ import { useQuestTrack } from '../QuestTrackContext';
 import { Compass, Tornado, Castle, FlaskConical, PawPrint, CalendarDays, Sword, Cat, Check, ChevronDown, RotateCcw } from 'lucide-react';
 import { cn } from '../../../lib/utils';
 
-const FRIGOST_DUNGEONS = [
-  "Royalmouth", "Mansot Royal", "Ben le Ripate", "Obsidiantre",
-  "Tengu Snowfoux", "Korriandre", "Kolosso", "Glourséleste",
-  "Sylargh", "Klime", "Nileza", "Missiz Frizz", "Comte Harebourg"
+const FRIGOST_DATA = [
+  { name: "Royalmouth", kamas: 20136 },
+  { name: "Mansot Royal", kamas: 26856 },
+  { name: "Ben le Ripate", kamas: 30576 },
+  { name: "Obsidiantre", kamas: 34536 },
+  { name: "Tengu Snowfoux", kamas: 38736 },
+  { name: "Korriandre", kamas: 43176 },
+  { name: "Kolosso", kamas: 47856 },
+  { name: "Glourséleste", kamas: 47856 },
+  { name: "Sylargh", kamas: 0 },
+  { name: "Klime", kamas: 0 },
+  { name: "Nileza", kamas: 0 },
+  { name: "Missiz Frizz", kamas: 0 },
+  { name: "Comte Harebourg", kamas: 0 }
 ];
 
+const FRIGOST_DUNGEONS = FRIGOST_DATA.map(d => d.name);
+
 const TORNADE_DATA = [
-  { quest: 'Donjon en mousse', dungeon: 'Donjon mousse' },
-  { quest: 'Donjon rikiki', dungeon: 'Donjon rikiki' },
-  { quest: 'Donjon en lambeaux', dungeon: 'Maison Fantôme' },
-  { quest: 'Donjon éducatif', dungeon: 'Akadémie des Gobs' },
-  { quest: 'Donjon douillet', dungeon: 'Nid du Kwakwa' },
-  { quest: 'Donjon magistral', dungeon: 'Grotte Hesque' },
-  { quest: 'Entre quatre blops', dungeon: 'Clos des Blops' },
-  { quest: 'Un Kanniboul versé', dungeon: 'Village Kanniboul' },
-  { quest: 'Le Wa Pythie', dungeon: 'Château du Wa Wabbit' },
-  { quest: 'Gelée bien eue', dungeon: 'Gelaxième dimension' },
-  { quest: 'C\'est radical ici', dungeon: 'Épreuve de Draegnerys' },
-  { quest: 'Chéri fais-moi peur', dungeon: 'Cale de l\'arche d\'Otomaï' },
-  { quest: 'Histoire de chiens', dungeon: 'Laboratoire de Brumen Tinctorias' },
-  { quest: 'Le fossile et le marteau', dungeon: 'Cimetière des Mastodontes' },
-  { quest: 'Un défilé de Wobots', dungeon: 'Terrier du Wa Wabbit' },
-  { quest: 'C\'est du bateau', dungeon: 'Bateau du Chouque' },
-  { quest: 'Le spectacle vivant', dungeon: 'Chapiteau des Magik Riktus' },
-  { quest: 'Tour du propriétaire', dungeon: 'Antre de la Reine Nyée' },
-  { quest: 'Tour d\'honneur', dungeon: 'Repaire du Kharnozor' },
-  { quest: 'Tour de marionnettes', dungeon: 'Théâtre de Dramak' },
-  { quest: 'Tour d\'horizon', dungeon: 'Arbre de Moon' },
-  { quest: 'Tour à tour', dungeon: 'Goulet du Rasboul' },
-  { quest: 'Tour de table', dungeon: 'Antre du Blop Multicolore Royal' },
-  { quest: 'Tour de passe-passe', dungeon: 'Laboratoire du Tynril' },
-  { quest: 'Tour de rein', dungeon: 'Repaire de Sphincter Cell' },
-  { quest: 'Tour de main', dungeon: 'Canopée du Kimbo' },
-  { quest: 'Tour de force', dungeon: 'Temple du Grand Ougah' },
-  { quest: 'Tour nage', dungeon: 'Aquadôme de Merkator' },
-  { quest: 'Le tour est joué', dungeon: 'Antre du Kralamoure Géant' }
+  { quest: 'Donjon en mousse', dungeon: 'Donjon mousse', kamas: 1872 },
+  { quest: 'Donjon rikiki', dungeon: 'Donjon rikiki', kamas: 5712 },
+  { quest: 'Donjon en lambeaux', dungeon: 'Maison Fantôme', kamas: 5712 },
+  { quest: 'Donjon éducatif', dungeon: 'Akadémie des Gobs', kamas: 5712 },
+  { quest: 'Donjon douillet', dungeon: 'Nid du Kwakwa', kamas: 8352 },
+  { quest: 'Donjon magistral', dungeon: 'Grotte Hesque', kamas: 8352 },
+  { quest: 'Entre quatre blops', dungeon: 'Clos des Blops', kamas: 11472 },
+  { quest: 'Un Kanniboul versé', dungeon: 'Village Kanniboul', kamas: 11472 },
+  { quest: 'Le Wa Pythie', dungeon: 'Château du Wa Wabbit', kamas: 11472 },
+  { quest: 'Gelée bien eue', dungeon: 'Gelaxième dimension', kamas: 11472 },
+  { quest: 'C\'est radical ici', dungeon: 'Épreuve de Draegnerys', kamas: 15072 },
+  { quest: 'Chéri fais-moi peur', dungeon: 'Cale de l\'arche d\'Otomaï', kamas: 15072 },
+  { quest: 'Histoire de chiens', dungeon: 'Laboratoire de Brumen Tinctorias', kamas: 15072 },
+  { quest: 'Le fossile et le marteau', dungeon: 'Cimetière des Mastodontes', kamas: 19152 },
+  { quest: 'Un défilé de Wobots', dungeon: 'Terrier du Wa Wabbit', kamas: 19152 },
+  { quest: 'C\'est du bateau', dungeon: 'Bateau du Chouque', kamas: 23712 },
+  { quest: 'Le spectacle vivant', dungeon: 'Chapiteau des Magik Riktus', kamas: 23712 },
+  { quest: 'Tour du propriétaire', dungeon: 'Antre de la Reine Nyée', kamas: 23712 },
+  { quest: 'Tour d\'honneur', dungeon: 'Repaire du Kharnozor', kamas: 28752 },
+  { quest: 'Tour de marionnettes', dungeon: 'Théâtre de Dramak', kamas: 28752 },
+  { quest: 'Tour d\'horizon', dungeon: 'Arbre de Moon', kamas: 28752 },
+  { quest: 'Tour à tour', dungeon: 'Goulet du Rasboul', kamas: 34272 },
+  { quest: 'Tour de table', dungeon: 'Antre du Blop Multicolore Royal', kamas: 40272 },
+  { quest: 'Tour de passe-passe', dungeon: 'Laboratoire du Tynril', kamas: 53712 },
+  { quest: 'Tour de rein', dungeon: 'Repaire de Sphincter Cell', kamas: 61152 },
+  { quest: 'Tour de main', dungeon: 'Canopée du Kimbo', kamas: 69072 },
+  { quest: 'Tour de force', dungeon: 'Temple du Grand Ougah', kamas: 86352 },
+  { quest: 'Tour nage', dungeon: 'Aquadôme de Merkator', kamas: 105552 },
+  { quest: 'Le tour est joué', dungeon: 'Antre du Kralamoure Géant', kamas: 105552 }
 ];
 
 const VACCIN_DURATION = 8 * 24 * 60 * 60 * 1000;
@@ -66,14 +78,14 @@ const getNextTuesdayAt7AM = (nowTime: number) => {
 };
 
 const TOUR_DU_MONDE_DATA = [
-  { quest: 'Le tour du monde.', dungeons: ['Grange du Tournesol Affamé'] },
-  { quest: 'Revenons à nos bouftons.', dungeons: ['Cour du Bouftou Royal'] },
-  { quest: 'maitre des clés', dungeons: ['Donjon des Squelettes', 'Donjon des Tofus'] },
-  { quest: 'Les sbires du maître', dungeons: ['Donjon des Scarafeuilles', 'Donjon des Forgerons', 'Donjon des Bworks', 'Donjon des Larves', 'Refuge Sylvestre', 'Pitons Rocheux des Craqueleurs'] },
-  { quest: 'Un juge hystérique', dungeons: ['Domaine Ancestral', 'Antre du Dragon Cochon', 'Caverne du Koulosse', 'Tanière du Meulou', 'Garde-manger du Rat Blanc', 'Sousouricière du Rat Noir'] },
-  { quest: 'Des donjons, encore des donjons', dungeons: ['Bibliothèque du Maître Corbac', 'Serre du Royalmouth', 'Labyrinthe du Minotoror', 'Tofulailler Royal', 'Antre de Crocabulia'] },
-  { quest: 'La voie du guerrier', dungeons: ['Repaire de Skeunk', 'Atelier du Tanukouï San', 'Fabrique de foux d\'artifice', 'Clairière du Chêne Mou', 'Donjon du Minotot', 'Grotte du Bworker'] },
-  { quest: 'Le tracas du guerrier', dungeons: [] }
+  { quest: 'Le tour du monde.', dungeons: ['Grange du Tournesol Affamé'], kamas: 1872 },
+  { quest: 'Revenons à nos bouftons.', dungeons: ['Cour du Bouftou Royal'], kamas: 3552 },
+  { quest: 'maitre des clés', dungeons: ['Donjon des Squelettes', 'Donjon des Tofus'], kamas: 11424 },
+  { quest: 'Les sbires du maître', dungeons: ['Donjon des Scarafeuilles', 'Donjon des Forgerons', 'Donjon des Bworks', 'Donjon des Larves', 'Refuge Sylvestre', 'Pitons Rocheux des Craqueleurs'], kamas: 54192 },
+  { quest: 'Un juge hystérique', dungeons: ['Domaine Ancestral', 'Antre du Dragon Cochon', 'Caverne du Koulosse', 'Tanière du Meulou', 'Garde-manger du Rat Blanc', 'Sousouricière du Rat Noir'], kamas: 178512 },
+  { quest: 'Des donjons, encore des donjons', dungeons: ['Bibliothèque du Maître Corbac', 'Serre du Royalmouth', 'Labyrinthe du Minotoror', 'Tofulailler Royal', 'Antre de Crocabulia'], kamas: 195360 },
+  { quest: 'La voie du guerrier', dungeons: ['Repaire de Skeunk', 'Atelier du Tanukouï San', 'Fabrique de foux d\'artifice', 'Clairière du Chêne Mou', 'Donjon du Minotot', 'Grotte du Bworker'], kamas: 349872 },
+  { quest: 'Le tracas du guerrier', dungeons: [], kamas: 0 }
 ];
 
 const RPGCheckbox = ({ checked, onChange }: { checked: boolean; onChange: (v: boolean) => void }) => (
@@ -209,6 +221,25 @@ export function QuestBoard() {
     return q.dungeons.every(dj => d.tourDuMondeChecked.includes(dj));
   }).length;
 
+  const totalTdmKamas = TOUR_DU_MONDE_DATA.reduce((acc, q) => acc + q.kamas, 0);
+  const earnedTdmKamas = TOUR_DU_MONDE_DATA.reduce((acc, q) => {
+    const isQuestDone = q.dungeons.length === 0 
+      ? d.tourDuMondeChecked.includes('pnj')
+      : q.dungeons.every(dj => d.tourDuMondeChecked.includes(dj));
+    return acc + (isQuestDone ? q.kamas : 0);
+  }, 0);
+
+  const totalTornadeKamas = TORNADE_DATA.reduce((acc, q) => acc + q.kamas, 0);
+  const earnedTornadeKamas = TORNADE_DATA.reduce((acc, q, i) => {
+    return acc + (safeTornadeChecked.includes(i) ? q.kamas : 0);
+  }, 0);
+
+  const FRIGOST_3_META_BONUS = 211104;
+  const totalFrigostKamas = FRIGOST_DATA.reduce((acc, q) => acc + q.kamas, 0) + FRIGOST_3_META_BONUS;
+  const earnedFrigostKamas = FRIGOST_DATA.reduce((acc, q, i) => {
+    return acc + (safeFrigostChecked.includes(i) ? q.kamas : 0);
+  }, 0) + ([8, 9, 10, 11].every(id => safeFrigostChecked.includes(id)) ? FRIGOST_3_META_BONUS : 0);
+
   return (
     <div className="w-full max-w-5xl mx-auto my-8 rounded-lg bg-zinc-900 border border-zinc-800/50 shadow-xl shadow-black/50 overflow-hidden">
       <div className="px-6 py-4 border-b border-zinc-800 bg-zinc-900/50 flex items-center justify-between">
@@ -246,14 +277,27 @@ export function QuestBoard() {
             </div>
             
             <div className="flex items-center gap-4">
-              <div className="hidden sm:flex items-center gap-2 w-44">
-                <div className="flex-1 h-1.5 bg-zinc-950 rounded-full border border-zinc-800 overflow-hidden">
-                  <div 
-                    className="h-full bg-emerald-500/80 transition-all duration-500" 
-                    style={{ width: `${(currentTdmStep / totalTdmSteps) * 100}%` }} 
-                  />
+              <div className="hidden sm:flex flex-col gap-1.5 w-60">
+                <div className="flex items-center gap-2">
+                  <div className="flex-1 h-1.5 bg-zinc-950 rounded-full border border-zinc-800 overflow-hidden">
+                    <div 
+                      className="h-full bg-emerald-500/80 transition-all duration-500" 
+                      style={{ width: `${(currentTdmStep / totalTdmSteps) * 100}%` }} 
+                    />
+                  </div>
+                  <span className="text-xs font-medium text-zinc-400 w-8 text-right">{currentTdmStep}/{totalTdmSteps}</span>
                 </div>
-                <span className="text-xs font-medium text-zinc-400 w-8 text-right">{currentTdmStep}/{totalTdmSteps}</span>
+                <div className="flex items-center gap-2">
+                  <div className="flex-1 h-1.5 bg-zinc-950 rounded-full border border-zinc-800 overflow-hidden">
+                    <div 
+                      className="h-full bg-amber-500/80 transition-all duration-500" 
+                      style={{ width: `${(earnedTdmKamas / Math.max(1, totalTdmKamas)) * 100}%` }} 
+                    />
+                  </div>
+                  <span className="text-[10px] font-medium text-amber-500/90 w-auto text-right tabular-nums whitespace-nowrap">
+                    {earnedTdmKamas.toLocaleString('fr-FR')} / {totalTdmKamas.toLocaleString('fr-FR')} 💰
+                  </span>
+                </div>
               </div>
               
               <RPGSelect
@@ -391,14 +435,27 @@ export function QuestBoard() {
             <span className="text-sm font-medium text-zinc-100">Tornade de Donjons</span>
           </div>
           <div className="flex items-center gap-4">
-            <div className="hidden md:flex items-center gap-2 w-28 lg:w-44">
-              <div className="flex-1 h-1.5 bg-zinc-950 rounded-full border border-white/5 overflow-hidden shadow-inner">
-                <div 
-                  className="h-full bg-emerald-500/80 transition-all duration-500" 
-                  style={{ width: `${(safeTornadeChecked.length / TORNADE_DATA.length) * 100}%` }} 
-                />
+            <div className="hidden md:flex flex-col gap-1.5 w-60">
+              <div className="flex items-center gap-2">
+                <div className="flex-1 h-1.5 bg-zinc-950 rounded-full border border-white/5 overflow-hidden shadow-inner">
+                  <div 
+                    className="h-full bg-emerald-500/80 transition-all duration-500" 
+                    style={{ width: `${(safeTornadeChecked.length / TORNADE_DATA.length) * 100}%` }} 
+                  />
+                </div>
+                <span className="text-xs font-medium text-zinc-400 w-8 text-right">{safeTornadeChecked.length}/{TORNADE_DATA.length}</span>
               </div>
-              <span className="text-xs font-medium text-zinc-400 w-8 text-right">{safeTornadeChecked.length}/{TORNADE_DATA.length}</span>
+              <div className="flex items-center gap-2">
+                <div className="flex-1 h-1.5 bg-zinc-950 rounded-full border border-zinc-800 overflow-hidden">
+                  <div 
+                    className="h-full bg-amber-500/80 transition-all duration-500" 
+                    style={{ width: `${(earnedTornadeKamas / Math.max(1, totalTornadeKamas)) * 100}%` }} 
+                  />
+                </div>
+                <span className="text-[10px] font-medium text-amber-500/90 w-auto text-right tabular-nums whitespace-nowrap">
+                  {earnedTornadeKamas.toLocaleString('fr-FR')} / {totalTornadeKamas.toLocaleString('fr-FR')} 💰
+                </span>
+              </div>
             </div>
             
             <div className="flex items-center gap-1.5">
@@ -459,14 +516,27 @@ export function QuestBoard() {
             <span className="text-sm font-medium text-zinc-100">Donjons Frigost</span>
           </div>
           <div className="flex items-center gap-4">
-            <div className="hidden md:flex items-center gap-2 w-28 lg:w-44">
-              <div className="flex-1 h-1.5 bg-zinc-950 rounded-full border border-white/5 overflow-hidden shadow-inner">
-                <div 
-                  className="h-full bg-emerald-500/80 transition-all duration-500" 
-                  style={{ width: `${(safeFrigostChecked.length / FRIGOST_DUNGEONS.length) * 100}%` }} 
-                />
+            <div className="hidden md:flex flex-col gap-1.5 w-60">
+              <div className="flex items-center gap-2">
+                <div className="flex-1 h-1.5 bg-zinc-950 rounded-full border border-white/5 overflow-hidden shadow-inner">
+                  <div 
+                    className="h-full bg-emerald-500/80 transition-all duration-500" 
+                    style={{ width: `${(safeFrigostChecked.length / FRIGOST_DUNGEONS.length) * 100}%` }} 
+                  />
+                </div>
+                <span className="text-xs font-medium text-zinc-400 w-8 text-right">{safeFrigostChecked.length}/{FRIGOST_DUNGEONS.length}</span>
               </div>
-              <span className="text-xs font-medium text-zinc-400 w-8 text-right">{safeFrigostChecked.length}/{FRIGOST_DUNGEONS.length}</span>
+              <div className="flex items-center gap-2">
+                <div className="flex-1 h-1.5 bg-zinc-950 rounded-full border border-zinc-800 overflow-hidden">
+                  <div 
+                    className="h-full bg-amber-500/80 transition-all duration-500" 
+                    style={{ width: `${(earnedFrigostKamas / Math.max(1, totalFrigostKamas)) * 100}%` }} 
+                  />
+                </div>
+                <span className="text-[10px] font-medium text-amber-500/90 w-auto text-right tabular-nums whitespace-nowrap">
+                  {earnedFrigostKamas.toLocaleString('fr-FR')} / {totalFrigostKamas.toLocaleString('fr-FR')} 💰
+                </span>
+              </div>
             </div>
             
             <div className="flex items-center gap-1.5">
