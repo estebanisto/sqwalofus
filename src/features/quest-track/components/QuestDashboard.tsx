@@ -124,10 +124,10 @@ export function QuestDashboard({ onGoToBoard }: { onGoToBoard: () => void }) {
                 <div className="pt-2 mt-2 border-t border-white/5 grid grid-cols-2 gap-2">
                   <div className="flex flex-col gap-2">
                     <span className="text-[10px] uppercase text-zinc-500 font-bold tracking-wider">Quotidien</span>
-                    <div className={cn("flex items-center gap-1 text-xs", isAlmanaxDone ? "text-emerald-500" : "text-zinc-500")}>
+                    <div className={cn("flex items-center gap-1 text-xs", isAlmanaxDone ? "text-emerald-500" : "text-red-400/80")}>
                       <CalendarDays size={12} /> Almanax
                     </div>
-                    <div className={cn("flex items-center gap-1 text-xs", isDragoDone ? "text-emerald-500" : "text-zinc-500")}>
+                    <div className={cn("flex items-center gap-1 text-xs", isDragoDone ? "text-emerald-500" : "text-red-400/80")}>
                       <PawPrint size={12} /> Élevage
                     </div>
                   </div>
