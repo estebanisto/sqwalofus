@@ -221,24 +221,26 @@ export function QuestBoard() {
     return q.dungeons.every(dj => d.tourDuMondeChecked.includes(dj));
   }).length;
 
-  const totalTdmKamas = TOUR_DU_MONDE_DATA.reduce((acc, q) => acc + q.kamas, 0);
+  const teamSize = d.teamSize || 8;
+
+  const totalTdmKamas = TOUR_DU_MONDE_DATA.reduce((acc, q) => acc + q.kamas, 0) * teamSize;
   const earnedTdmKamas = TOUR_DU_MONDE_DATA.reduce((acc, q) => {
     const isQuestDone = q.dungeons.length === 0 
       ? d.tourDuMondeChecked.includes('pnj')
       : q.dungeons.every(dj => d.tourDuMondeChecked.includes(dj));
     return acc + (isQuestDone ? q.kamas : 0);
-  }, 0);
+  }, 0) * teamSize;
 
-  const totalTornadeKamas = TORNADE_DATA.reduce((acc, q) => acc + q.kamas, 0);
+  const totalTornadeKamas = TORNADE_DATA.reduce((acc, q) => acc + q.kamas, 0) * teamSize;
   const earnedTornadeKamas = TORNADE_DATA.reduce((acc, q, i) => {
     return acc + (safeTornadeChecked.includes(i) ? q.kamas : 0);
-  }, 0);
+  }, 0) * teamSize;
 
   const FRIGOST_3_META_BONUS = 211104;
-  const totalFrigostKamas = FRIGOST_DATA.reduce((acc, q) => acc + q.kamas, 0) + FRIGOST_3_META_BONUS;
-  const earnedFrigostKamas = FRIGOST_DATA.reduce((acc, q, i) => {
+  const totalFrigostKamas = (FRIGOST_DATA.reduce((acc, q) => acc + q.kamas, 0) + FRIGOST_3_META_BONUS) * teamSize;
+  const earnedFrigostKamas = (FRIGOST_DATA.reduce((acc, q, i) => {
     return acc + (safeFrigostChecked.includes(i) ? q.kamas : 0);
-  }, 0) + ([8, 9, 10, 11].every(id => safeFrigostChecked.includes(id)) ? FRIGOST_3_META_BONUS : 0);
+  }, 0) + ([8, 9, 10, 11].every(id => safeFrigostChecked.includes(id)) ? FRIGOST_3_META_BONUS : 0)) * teamSize;
 
   return (
     <div className="w-full max-w-5xl mx-auto my-8 rounded-lg bg-zinc-900 border border-zinc-800/50 shadow-xl shadow-black/50 overflow-hidden">
@@ -246,11 +248,30 @@ export function QuestBoard() {
         <h2 className="text-sm font-semibold text-amber-500/90 tracking-wider uppercase flex items-center gap-2">
           Suivi de progression
         </h2>
-        <button
-          onClick={() => {
-            if (window.confirm(`Êtes-vous sûr de vouloir réinitialiser toute la progression de la team "${team.name}" ?`)) {
-              resetTeam(activeTeamId);
-            }
+        <div className="flex items-center gap-4">
+          <div className="hidden sm:flex items-center gap-1 bg-zinc-950 px-1.5 py-1 rounded border border-zinc-800 shadow-inner">
+            <span className="text-xs text-zinc-400 font-medium px-2">Comptes :</span>
+            {[1, 4, 8].map(size => (
+              <button
+                key={size}
+                onClick={() => update('teamSize', size)}
+                className={cn(
+                  "px-2.5 py-0.5 rounded text-xs font-bold transition-all",
+                  teamSize === size 
+                    ? "bg-amber-500/20 text-amber-500 border border-amber-500/50 shadow-sm" 
+                    : "text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800 border border-transparent"
+                )}
+              >
+                {size}
+              </button>
+            ))}
+          </div>
+
+          <button
+            onClick={() => {
+              if (window.confirm(`Êtes-vous sûr de vouloir réinitialiser toute la progression de la team "${team.name}" ?`)) {
+                resetTeam(activeTeamId);
+              }
           }}
           className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-red-500/70 hover:text-red-400 bg-red-500/10 hover:bg-red-500/20 rounded border border-red-500/20 transition-colors"
           title="Réinitialiser la Team"
@@ -258,6 +279,7 @@ export function QuestBoard() {
           <RotateCcw size={14} />
           <span className="hidden sm:inline">Reset la Team</span>
         </button>
+        </div>
       </div>
 
       <div className="flex flex-col divide-y divide-zinc-800/50">

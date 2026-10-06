@@ -18,6 +18,7 @@ type QuestData = {
   justiciersTimestamp: number | null;
   kerubimDone: boolean;
   kerubimTimestamp: number | null;
+  teamSize?: 1 | 4 | 8;
 };
 
 type Team = {
@@ -54,6 +55,7 @@ const defaultData: QuestData = {
   justiciersTimestamp: null,
   kerubimDone: false,
   kerubimTimestamp: null,
+  teamSize: 8,
 };
 
 const STORAGE_KEY = 'sqwalofus_quest_data';
